@@ -25,12 +25,12 @@ class Poly3(TrajectoryGenerator):
         """
         t /= self.T
         q = self.a_3 * t**3 + self.a_2 * t**2 * (1 - t) + self.a_1 * t * (1 - t)**2 + self.a_0 * (1 - t)**3
-        q_dot = (-3 * self.a_0 * (1 - t)**2
-                 + self.a_1 * (1-t) ** 2 - 2 * self.a_1 * t * (1 - t)
-                 + 2 * self.a_2 * t * (1-t) - self.a_2 * t ** 2
-                 + 3 * self.a_3 * t ** 2)
-        q_ddot = (6 * self.a_0 * (1 - t)
-                  - 4 * self.a_1 * (1 - t) + 2 * self.a_1 * t
-                  + 2 * self.a_2 - 4 * self.a_2 * t
-                  + 6 * self.a_3 * t)
+        q_dot = (3 * self.a_3 * t ** 2
+                 + 2 * self.a_2 * t * (1 - t) - self.a_2 * t ** 2
+                 + self.a_1 * (1 - t) ** 2 - 2 * self.a_1 * t * (1 - t)
+                 - 3 * self.a_0 * (1 - t) ** 2)
+        q_ddot = (6 * self.a_3 * t
+                  + 2 * self.a_2 * (1 - t) - 2 * self.a_2 * t - 2 * self.a_2 * t
+                  - 2 * self.a_1 * (1 - t) - 2 * self.a_1 * (1 - t) + 2 * self.a_1 * t
+                  + 6 * self.a_0 * (1 - t))
         return q, q_dot / self.T, q_ddot / self.T**2

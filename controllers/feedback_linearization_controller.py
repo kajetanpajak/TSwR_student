@@ -5,9 +5,9 @@ from .controller import Controller
 
 class FeedbackLinearizationController(Controller):
     def __init__(self, Tp):
-        self.model = ManiuplatorModel(Tp)
-        self.Kp = 20.0
-        self.Kd = 10.0
+        self.model = ManiuplatorModel(Tp, 0.0, 0.01)
+        self.Kp = 100.0
+        self.Kd = 20.0
 
     def calculate_control(self, x, q_r, q_r_dot, q_r_ddot):
         """
