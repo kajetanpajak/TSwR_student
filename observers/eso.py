@@ -17,8 +17,22 @@ class ESO:
 
     def update(self, q, u):
         self.states.append(copy(self.state))
-        
-        ### TODO implement ESO update
+        z = np.reshape(self.state, (len(self.state), 1))
+        u = np.reshape(u, (1, 1))
+        z_dot = self.A @ z + self.B @ u + self.L @ (q - self.W @ z)
+        self.state = self.state + np.reshape(z_dot * self.Tp, (1, len(self.state)))
+        self.state = self.state[0]
 
     def get_state(self):
         return self.state
+    
+def main():
+    eso = ESO(A=np.array([[0, 1, 0], [0, 0, 1], [0, 0, 0]]), B=np.array([[0], [1], [0]]), W=np.array([[1, 0, 0]]), L=np.array([[10], [100], [20]]), state=[0, 0, 0], Tp=0.01)
+    print(eso.state.shape)
+
+    eso.update(1, 1)
+    print(eso.state)
+
+
+if __name__ == "__main__":
+    main()
